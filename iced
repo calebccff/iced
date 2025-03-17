@@ -6,7 +6,7 @@ TMPDIR=$(mktemp -d)
 CACHE="$HOME/.cache/iced"
 
 usage() {
-	printf 'Usage: iced [-e VERSION] [-c] {install,remove,run,clear,wrap,ls} PKG|TOOL\n'
+	printf 'Usage: iced [-e VERSION] [-c] {install,remove,run,clear,wrap,ls,upgrade} PKG|TOOL\n'
 	printf '    -e VERSION: use specific Alpine version (e.g. edge, 3.21, etc)'
 	printf '    -c        : run the tool outside of the chroot, it may fail to find configs'
 }
@@ -166,6 +166,9 @@ wrap)
 	;;
 search)
 	apk search $tool
+	;;
+upgrade)
+	apk upgrade -a
 	;;
 ls)
 	progs="$(cat "$ROOTFS/etc/apk/world" | grep -v "alpine-base")"
